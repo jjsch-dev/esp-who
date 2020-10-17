@@ -1087,6 +1087,10 @@ static esp_err_t index_handler(httpd_req_t *req)
     extern const unsigned char index_ov5640_html_gz_start[] asm("_binary_index_ov5640_html_gz_start");
     extern const unsigned char index_ov5640_html_gz_end[] asm("_binary_index_ov5640_html_gz_end");
     size_t index_ov5640_html_gz_len = index_ov5640_html_gz_end - index_ov5640_html_gz_start;
+    
+    extern const unsigned char index_ov7670_html_gz_start[] asm("_binary_index_ov7670_html_gz_start");
+    extern const unsigned char index_ov7670_html_gz_end[] asm("_binary_index_ov7670_html_gz_end");
+    size_t index_ov7670_html_gz_len = index_ov7670_html_gz_end - index_ov7670_html_gz_start;
 
     httpd_resp_set_type(req, "text/html");
     httpd_resp_set_hdr(req, "Content-Encoding", "gzip");
@@ -1096,6 +1100,8 @@ static esp_err_t index_handler(httpd_req_t *req)
             return httpd_resp_send(req, (const char *)index_ov3660_html_gz_start, index_ov3660_html_gz_len);
         } else if (s->id.PID == OV5640_PID) {
             return httpd_resp_send(req, (const char *)index_ov5640_html_gz_start, index_ov5640_html_gz_len);
+        } else if (s->id.PID == OV7670_PID) {
+            return httpd_resp_send(req, (const char *)index_ov7670_html_gz_start, index_ov7670_html_gz_len);
         } else {
             return httpd_resp_send(req, (const char *)index_ov2640_html_gz_start, index_ov2640_html_gz_len);
         }
